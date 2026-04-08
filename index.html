@@ -1,35 +1,131 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <title>Shopeasy</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            background: #f3f3f3;
+        }
 
-    <!-- Link to CSS -->
-    <link rel="stylesheet" href="style.css">
+        .navbar {
+            background: #131921;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navbar a {
+            color: white;
+            margin: 10px;
+            text-decoration: none;
+        }
+
+        .products {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            width: 200px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .cart {
+            padding: 20px;
+        }
+    </style>
 </head>
-
 <body>
 
-    <h1>My Portfolio 👩‍💻</h1>
+<div class="navbar">
+    <h2>Shopeasy</h2>
+    <div>
+        <a href="#">Home</a>
+        <a href="#">Cart</a>
+    </div>
+</div>
 
-    <p>Hello! I am learning Full Stack Development.</p>
+<h2 style="text-align:center;">Products</h2>
 
-    <h2>💡 Skills</h2>
-    <ul>
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>Python</li>
-    </ul>
+<div class="products">
 
-    <h2>🚀 Projects</h2>
-    <ul>
-        <li>Smart File Analyzer</li>
-        <li>Portfolio Website (In Progress)</li>
-    </ul>
+    <div class="card">
+        <h3>Watch</h3>
+        <p>$50</p>
+        <p id="d1"></p>
+        <button onclick="addToCart('Watch',50)">Add to Cart</button>
+    </div>
 
-    <h2>📫 Contact</h2>
-    <p>Email: yourname@gmail.com</p>
+    <div class="card">
+        <h3>Bag</h3>
+        <p>$70</p>
+        <p id="d2"></p>
+        <button onclick="addToCart('Bag',70)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+        <h3>Shoe</h3>
+        <p>$90</p>
+        <p id="d3"></p>
+        <button onclick="addToCart('Shoe',90)">Add to Cart</button>
+    </div>
+
+</div>
+
+<div class="cart">
+    <h2>Cart</h2>
+    <div id="cart"></div>
+    <h3 id="total"></h3>
+</div>
+
+<script>
+let cart = [];
+
+// delivery date
+function getDate(){
+    let d = new Date();
+    d.setDate(d.getDate()+7);
+    return d.toDateString();
+}
+
+document.getElementById("d1").innerText = "Delivery by " + getDate();
+document.getElementById("d2").innerText = "Delivery by " + getDate();
+document.getElementById("d3").innerText = "Delivery by " + getDate();
+
+// add to cart
+function addToCart(name, price){
+    cart.push({name, price});
+    renderCart();
+}
+
+// show cart
+function renderCart(){
+    let c = document.getElementById("cart");
+    let total = 0;
+    c.innerHTML = "";
+
+    cart.forEach(item=>{
+        total += item.price;
+        c.innerHTML += <p>${item.name} - $${item.price}</p>;
+    });
+
+    document.getElementById("total").innerText = "Total: $" + total;
+}
+</script>
 
 </body>
 </html>
